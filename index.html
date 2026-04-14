@@ -45,7 +45,8 @@
     async function fetchDeck() {
         const input = document.getElementById('deckUrl').value;
         // CORRETTO (cerca il server sullo stesso dominio dove si trova l'HTML)
-        const response = await fetch(`/api/deck?url=${encodeURIComponent(input)}`);
+        const deckId = input.includes('/') ? input.split('/').filter(Boolean).pop() : input;
+        const response = await fetch(`/api/deck?url=${encodeURIComponent(deckId)}`);
         const data = await response.json();
 
         if (data.error) {
