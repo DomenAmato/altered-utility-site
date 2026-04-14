@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Altered Deck Extractor</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f4f4f9; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        input { width: 80%; padding: 10px; margin-bottom: 10px; }
+        button { padding: 10px 20px; cursor: pointer; background: #007bff; color: white; border: none; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Altered TCG Deck Extractor</h2>
+    <input type="text" id="deckUrl" placeholder="Incolla il link share del deck...">
+    <button onclick="fetchDeck()">Estrai</button>
+
+    <h3 id="deckTitle"></h3>
+    <table id="resultTable" style="display:none;">
+        <thead>
+            <tr>
+                <th>Quantità</th>
+                <th>Codice</th>
+                <th>Nome Carta</th>
+            </tr>
+        </thead>
+        <tbody id="cardList"></tbody>
+    </table>
+</div>
+
+<script>
+    async function fetchDeck() {
+        const url = document.getElementById('deckUrl').value;
+        const response = await fetch(`http://localhost:3000/api/deck?url=${encodeURIComponent(url)}`);
+        const data = await response.json();
+
+        if (data.error) {
+            alert(data.error);
+            return;
+        }
+
+        document.getElementById('deckTitle').innerText = data.name;
+        const tbody = document.getElementById('cardList');
+        tbody.innerHTML = ''; // Pulisce i risultati precedenti
+
+        data.cards.forEach(c => {
+            const row = `<tr>
+                <td>${c.quantity}</td>
+                <td>${c.code}</td>
+                <td>${c.name}</td>
+            </tr>`;
+            tbody.innerHTML += row;
+        });
+
+        document.getElementById('resultTable').style.display = 'table';
+    }
+</script>
+</body>
+</html>

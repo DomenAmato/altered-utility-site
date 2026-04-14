@@ -1,0 +1,153 @@
+{
+  "@context": "/contexts/DeckUserList",
+  "@id": "/deck_user_lists/01KMGJ4169MHZYF4ZREJZDDSMD",
+  "@type": "DeckUserList",
+  name: "Gift Anchor",
+  user: {
+    "@id": "/users/01HNDRS2SWWFWT1TSDKYHND3TR",
+    "@type": "User",
+    id: "01HNDRS2SWWFWT1TSDKYHND3TR"
+  },
+  faction: {
+    "@id": "/factions/MU",
+    "@type": "Faction",
+    reference: "MU",
+    color: "#3d6b42",
+    id: "01GE7AC9X2BNM40TTAYAEFSZSJ",
+    name: "Muna"
+  },
+  alterator: {
+    "@id": "/cards/ALT_DUSTER_B_MU_85_C",
+    "@type": "Card",
+    cardType: {
+      "@id": "/card_types/01GE7AC9WGQTNRP28T63FH8TZD",
+      "@type": "CardType",
+      reference: "HERO",
+      id: "01GE7AC9WGQTNRP28T63FH8TZD",
+      name: "Eroe"
+    },
+    rarity: {
+      "@type": "Rarity",
+      "@id": "/.well-known/genid/3429753af4bcf3e9c333",
+      reference: "COMMON",
+      name: "Common"
+    },
+    imagePath: "https://altered-prod-eu.s3.amazonaws.com/Art/DUSTER/CARDS/ALT_DUSTER_B_MU_85/JPG/it_IT/904fdd8fb2da45d3558b354ac1a85ae1.jpg",
+    inMyCollection: 0,
+    assets: { WEB: [Array], HERO_WIDE: [Array], HERO_THUMB: [Array] },
+    numberCopyAvailable: 0,
+    isExclusive: false,
+    isOwnerless: false,
+    reference: "ALT_DUSTER_B_MU_85_C",
+    id: "01JYP9SVQ20ETDCX0K180V4RS3",
+    mainFaction: {
+      "@id": "/factions/MU",
+      "@type": "Faction",
+      reference: "MU",
+      color: "#3d6b42",
+      id: "01GE7AC9X2BNM40TTAYAEFSZSJ",
+      name: "Muna"
+    },
+    allImagePath: [],
+    name: "Turuun e Benih",
+    elements: {
+      MAIN_COST: "0",
+      RECALL_COST: "0",
+      PERMANENT: "2",
+      RESERVE: "2",
+      MAIN_EFFECT: "Quando fai un [Regalo] — Puoi consumarmi ({T}) per riceverlo anche tu. (Un Regalo avviene se, durante il tuo turno, l’avversario pesca una carta, si Rifornisce o riceve una pedina.)  Ignora la mia abilità il primo Giorno."
+    },
+    isSuspended: false,
+    isErrated: false,
+    isBanned: false,
+    isSerialized: false,
+    isParentSerialized: false,
+    siblingReference: "MU_85",
+    familyReference: "MU_85_C"
+  },
+  eventFormat: "STANDARD",
+  public: false,
+  cardQuantity: 39,
+  deckLegality: {
+    "@id": "/deck_legalities/1",
+    "@type": "DeckLegality",
+    deckLegalityRules: [
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object],
+      [Object], [Object]
+    ],
+    resume: {
+      nbRare: true,
+      isOwned: true,
+      nbUnique: true,
+      isSameFaction: true,
+      nbFamily: true,
+      nbHero: true,
+      nbCards: true,
+      isSuspended: true,
+      isBanned: true,
+      cardSetValidity: true,
+      nbCards_1: true,
+      nbExalted: true,
+      globalValidity: true,
+      errorFamily: []
+    }
+  },
+  deckCardsByType: {
+    "@type": "DeckCard",
+    "@id": "/.well-known/genid/15ae19b173fbd90dc828",
+    character: {
+      "@type": "DeckCards",
+      "@id": "/.well-known/genid/420196cafa63e7ff0765",
+      deckUserListCard: [Array],
+      number: 27
+    },
+    spell: {
+      "@type": "DeckCards",
+      "@id": "/.well-known/genid/e5077a40c5b52b5958ab",
+      deckUserListCard: [Array],
+      number: 9
+    },
+    permanent: {
+      "@type": "DeckCards",
+      "@id": "/.well-known/genid/afec9b6b7a623b856b2b",
+      deckUserListCard: [Array],
+      number: 3
+    }
+  },
+  cardsByRarityData: [
+    [ "COMMON", 20, null ],
+    [ "RARE", 15, 15 ],
+    [ "EXALTED", 1, 3 ],
+    [ "UNIQUE", 3, 3 ]
+  ],
+  updatedAt: "2026-04-13T10:01:57+00:00",
+  id: "01KMGJ4169MHZYF4ZREJZDDSMD",
+  description: "",
+  legal: true,
+  cardIndexes: {
+    "/cards/ALT_DUSTER_B_MU_86_R1": 2,
+    "/cards/ALT_BISE_B_MU_51_C": 2,
+    "/cards/ALT_CORE_B_MU_28_C": 2,
+    "/cards/ALT_DUSTER_B_MU_100_R1": 3,
+    "/cards/ALT_DUSTER_B_YZ_86_R2": 1,
+    "/cards/ALT_CYCLONE_A_BR_77_R2": 1,
+    "/cards/ALT_BISE_B_MU_56_R1": 3,
+    "/cards/ALT_CYCLONE_B_MU_70_C": 3,
+    "/cards/ALT_CORE_B_MU_04_C": 3,
+    "/cards/ALT_CORE_B_MU_16_R1": 3,
+    "/cards/ALT_DUSTER_B_MU_88_C": 2,
+    "/cards/ALT_CORE_B_MU_05_C": 3,
+    "/cards/ALT_DUSTER_A_MU_96_E": 1,
+    "/cards/ALT_DUSTER_B_MU_86_U_5404": 1,
+    "/cards/ALT_BISE_B_MU_60_C": 3,
+    "/cards/ALT_DUSTER_B_MU_98_C": 1,
+    "/cards/ALT_DUSTEROP_A_MU_98_C": 1,
+    "/cards/ALT_DUSTER_B_MU_88_U_5227": 1,
+    "/cards/ALT_BISE_B_MU_59_R1": 2,
+    "/cards/ALT_DUSTER_B_BR_92_U_3524": 1
+  }
+}
