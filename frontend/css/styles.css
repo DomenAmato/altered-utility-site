@@ -17,7 +17,9 @@ body {
 }
 
 /* Menu di navigazione */
+
 nav {
+    display: none;
     background: #333;
     padding: 10px;
     margin-bottom: 20px;
@@ -106,4 +108,18 @@ input[type="text"] {
 #adminStatus {
     margin-top: 10px;
     font-weight: bold;
+}
+
+/* Hide specific elements */
+.hidden {
+        display: none !important;
+    }
+
+#admin-nav-link {
+    display: none; /* Nascondiamo la voce del menu */
+}
+
+nav {
+    /* Se vuoi nascondere l'intera barra di navigazione */
+    display: none; 
 }

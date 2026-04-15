@@ -1,3 +1,11 @@
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('admin') === 'true') {
+        document.getElementById('main-nav').style.display = 'block';
+        document.getElementById('admin-nav-link').style.display = 'inline-block';
+    }
+}
+
 // Gestione Pagine
 function showPage(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));

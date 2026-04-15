@@ -8,10 +8,12 @@
 <body>
 
 <div class="container">
-    <nav>
+    <nav id="main-nav">
         <a onclick="showPage('extractor')">Estrattore Deck</a>
-        <a onclick="showPage('admin')">Gestione Database</a>
+        <a id="admin-nav-link" onclick="showPage('admin')">Gestione Database</a>
     </nav>
+
+    <div id="admin" class="page"></div>
 
     <div id="extractor" class="page active">
         <h2>Altered Deck Utility</h2>
@@ -44,6 +46,9 @@
 </div>
 </div>
 
-<script src="js/app.js"></script>
+<script src="js/app.js">
+
+    
+</script>
 </body>
 </html>
