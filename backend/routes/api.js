@@ -1,19 +1,13 @@
 const express = require('express');
 const axios = require('axios');
-const cors = require('cors');
-const downloadAllExpansions = require('./downloadCards'); // Importiamo lo script sopra
+const fs = require('fs');
+const path = require('path');
+const downloadAllExpansions = require('../services/downloadCards');
 
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-app.use(cors()); // Permette al frontend di comunicare con il backend
-app.use(express.json());
-
-app.use(express.static(__dirname));
+const router = express.Router();
 
 // Endpoint per estrarre i dati del deck
-app.get('/api/deck', async (req, res) => {
+router.get('/deck', async (req, res) => {
     let input = req.query.url;
 
     if (!input) {
@@ -25,11 +19,11 @@ app.get('/api/deck', async (req, res) => {
         // Se l'input contiene "/", prendiamo l'ultima parte, altrimenti usiamo l'input così com'è.
         console.log(input)
         const deckId = input.includes('/') ? input.split('/').filter(Boolean).pop() : input;
-        
+
         const apiUrl = `https://api.altered.gg/deck_user_lists/${deckId}`;
         console.log(apiUrl)
         const response = await axios.get(apiUrl, {
-            headers: { 
+            headers: {
                 'Accept-Language': 'it-IT',
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
             }
@@ -64,9 +58,8 @@ app.get('/api/deck', async (req, res) => {
     }
 });
 
-
 // Rotta per avviare l'aggiornamento totale
-app.get('/api/admin/update-db', async (req, res) => {
+router.get('/admin/update-db', async (req, res) => {
     try {
         const report = await downloadAllExpansions();
         res.json({ message: "Aggiornamento completato", detail: report });
@@ -76,10 +69,10 @@ app.get('/api/admin/update-db', async (req, res) => {
 });
 
 // Rotta dinamica per scaricare il file di un'espansione specifica
-app.get('/api/admin/download-json/:set', (req, res) => {
+router.get('/admin/download-json/:set', (req, res) => {
     const setCode = req.params.set.toLowerCase();
     const fileName = `db_${setCode}.json`;
-    const filePath = path.join(__dirname, fileName);
+    const filePath = path.join(__dirname, '../../db', fileName); // Poiché siamo in backend/routes, ../../db
 
     if (fs.existsSync(filePath)) {
         res.download(filePath);
@@ -88,6 +81,4 @@ app.get('/api/admin/download-json/:set', (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server avviato su http://localhost:${PORT}`);
-});
+module.exports = router;

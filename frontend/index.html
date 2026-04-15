@@ -3,14 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Altered Utility Professional</title>
-    <style>
-        /* Aggiungiamo un po' di stile per il menu */
-        nav { background: #333; padding: 10px; margin-bottom: 20px; border-radius: 8px; }
-        nav a { color: white; margin-right: 15px; text-decoration: none; cursor: pointer; }
-        .page { display: none; }
-        .active { display: block; }
-        /* ... (tutto lo stile precedente) ... */
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -43,29 +36,6 @@
     </div>
 </div>
 
-<script>
-    // Gestione Pagine
-    function showPage(pageId) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
-    }
-
-    // Funzioni Admin
-    async function updateServerDB() {
-        const status = document.getElementById('adminStatus');
-        status.innerText = "Aggiornamento in corso... attendere (potrebbe volerci un minuto)";
-        try {
-            const response = await fetch('/api/admin/update-db');
-            const data = await response.json();
-            status.innerText = data.message || data.error;
-        } catch (e) { status.innerText = "Errore di connessione."; }
-    }
-
-    function downloadJSON() {
-        window.location.href = '/api/admin/download-json';
-    }
-
-    // ... (qui incolla le funzioni fetchDeck e copyToClipboard di prima) ...
-</script>
+<script src="js/app.js"></script>
 </body>
 </html>
