@@ -1,6 +1,8 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+const downloadAllExpansions = require('./downloadCards'); // Importiamo lo script sopra
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -59,6 +61,30 @@ app.get('/api/deck', async (req, res) => {
 
     } catch (error) {
         res.status(500).json({ error: 'ID o URL non valido' });
+    }
+});
+
+
+// Rotta per avviare l'aggiornamento totale
+app.get('/api/admin/update-db', async (req, res) => {
+    try {
+        const report = await downloadAllExpansions();
+        res.json({ message: "Aggiornamento completato", detail: report });
+    } catch (error) {
+        res.status(500).json({ error: "Errore durante l'aggiornamento" });
+    }
+});
+
+// Rotta dinamica per scaricare il file di un'espansione specifica
+app.get('/api/admin/download-json/:set', (req, res) => {
+    const setCode = req.params.set.toLowerCase();
+    const fileName = `db_${setCode}.json`;
+    const filePath = path.join(__dirname, fileName);
+
+    if (fs.existsSync(filePath)) {
+        res.download(filePath);
+    } else {
+        res.status(404).json({ error: "File non trovato. Esegui prima l'aggiornamento." });
     }
 });
 

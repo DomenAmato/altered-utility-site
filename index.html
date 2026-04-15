@@ -2,81 +2,70 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Altered Extractor</title>
+    <title>Altered Utility Professional</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; background: #eceff1; color: #333; }
-        .container { max-width: 500px; margin: auto; background: white; padding: 30px; border-radius: 12px; shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
-        .btn-group { display: flex; gap: 10px; }
-        button { flex: 1; padding: 12px; cursor: pointer; border-radius: 6px; border: none; font-weight: bold; }
-        .btn-extract { background: #1a73e8; color: white; }
-        .btn-copy { background: #34a853; color: white; display: none; }
-        table { width: 100%; border-collapse: collapse; margin-top: 25px; }
-        th, td { border-bottom: 1px solid #eee; padding: 12px; text-align: left; }
-        th { color: #666; font-size: 0.9em; }
+        /* Aggiungiamo un po' di stile per il menu */
+        nav { background: #333; padding: 10px; margin-bottom: 20px; border-radius: 8px; }
+        nav a { color: white; margin-right: 15px; text-decoration: none; cursor: pointer; }
+        .page { display: none; }
+        .active { display: block; }
+        /* ... (tutto lo stile precedente) ... */
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Altered Deck Utility</h2>
-    <input type="text" id="deckUrl" placeholder="Incolla Link Share o ID Deck...">
-    
-    <div class="btn-group">
-        <button class="btn-extract" onclick="fetchDeck()">ESTRAI</button>
-        <button id="copyBtn" class="btn-copy" onclick="copyToClipboard()">COPIA TESTO</button>
+    <nav>
+        <a onclick="showPage('extractor')">Estrattore Deck</a>
+        <a onclick="showPage('admin')">Gestione Database</a>
+    </nav>
+
+    <div id="extractor" class="page active">
+        <h2>Altered Deck Utility</h2>
+        <input type="text" id="deckUrl" placeholder="Incolla Link Share o ID Deck...">
+        <div class="btn-group">
+            <button class="btn-extract" onclick="fetchDeck()">ESTRAI</button>
+            <button id="copyBtn" class="btn-copy" onclick="copyToClipboard()">COPIA TESTO</button>
+        </div>
+        <table id="resultTable" style="display:none;">
+            <thead><tr><th>Qtà</th><th>Codice Carta</th></tr></thead>
+            <tbody id="cardList"></tbody>
+        </table>
     </div>
 
-    <h3 id="deckTitle" style="margin-top: 20px;"></h3>
-    <table id="resultTable" style="display:none;">
-        <thead>
-            <tr>
-                <th>Qtà</th>
-                <th>Codice Carta</th>
-            </tr>
-        </thead>
-        <tbody id="cardList"></tbody>
-    </table>
+    <div id="admin" class="page">
+        <h2>Gestione Dati</h2>
+        <p>Scarica l'intero database di Altered TCG (JSON) sul server e poi salvalo sul tuo PC.</p>
+        <button class="btn-extract" onclick="updateServerDB()">1. Aggiorna Database sul Server</button>
+        <br><br>
+        <button class="btn-copy" style="display:inline-block;" onclick="downloadJSON()">2. Scarica JSON sul PC</button>
+        <p id="adminStatus"></p>
+    </div>
 </div>
 
 <script>
-    let currentDeckText = "";
-
-    async function fetchDeck() {
-        const input = document.getElementById('deckUrl').value;
-        // CORRETTO (cerca il server sullo stesso dominio dove si trova l'HTML)
-        const deckId = input.includes('/') ? input.split('/').filter(Boolean).pop() : input;
-        const response = await fetch(`/api/deck?url=${encodeURIComponent(deckId)}`);
-        const data = await response.json();
-
-        if (data.error) {
-            alert(data.error);
-            return;
-        }
-
-        document.getElementById('deckTitle').innerText = data.name;
-        const tbody = document.getElementById('cardList');
-        tbody.innerHTML = '';
-        currentDeckText = ""; // Reset testo per copia
-
-        data.cards.forEach(c => {
-            // Popoliamo la tabella
-            const row = `<tr><td>${c.quantity}</td><td>${c.code}</td></tr>`;
-            tbody.innerHTML += row;
-            
-            // Prepariamo il testo piano (es: 3x ALT_CORE_B_YZ_01_R)
-            currentDeckText += `${c.quantity} ${c.code}\n`;
-        });
-
-        document.getElementById('resultTable').style.display = 'table';
-        document.getElementById('copyBtn').style.display = 'block';
+    // Gestione Pagine
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
     }
 
-    function copyToClipboard() {
-        navigator.clipboard.writeText(currentDeckText).then(() => {
-            alert("Lista copiata negli appunti!");
-        });
+    // Funzioni Admin
+    async function updateServerDB() {
+        const status = document.getElementById('adminStatus');
+        status.innerText = "Aggiornamento in corso... attendere (potrebbe volerci un minuto)";
+        try {
+            const response = await fetch('/api/admin/update-db');
+            const data = await response.json();
+            status.innerText = data.message || data.error;
+        } catch (e) { status.innerText = "Errore di connessione."; }
     }
+
+    function downloadJSON() {
+        window.location.href = '/api/admin/download-json';
+    }
+
+    // ... (qui incolla le funzioni fetchDeck e copyToClipboard di prima) ...
 </script>
 </body>
 </html>
